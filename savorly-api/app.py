@@ -13,7 +13,10 @@ def create_app():
 
     db.init_app(app)
     jwt.init_app(app)
-    cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
+    cors.init_app(app, resources={r"/api/*": {"origins": [
+        "http://localhost:5173",
+        "https://savorly-nine.vercel.app"
+    ]}})
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(foods_bp, url_prefix="/api/foods")
@@ -22,6 +25,14 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+
+    @app.route("/")
+    def index():
+        return jsonify({
+            "message": "Savorly API is running",
+            "health_check": "/api/health",
+            "foods": "/api/foods/"
+        })
 
     @app.route("/api/health")
     def health():
