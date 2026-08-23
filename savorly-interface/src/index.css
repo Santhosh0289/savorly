@@ -1303,3 +1303,77 @@ tr:hover td {
     gap: 28px;
   }
 }
+
+/* ---------- Admin mobile layout ---------- */
+@media (max-width: 900px) {
+  .admin-shell {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    position: relative;
+    padding: 16px 12px;
+  }
+  .admin-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    flex: none;
+    padding-bottom: 2px;
+  }
+  .admin-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .admin-content {
+    width: 100%;
+    min-width: 0;
+  }
+  .admin-main {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-sidebar-logo {
+    margin-bottom: 16px;
+  }
+  .admin-sidebar-logo .logo-img {
+    width: 86px;
+    height: 34px;
+  }
+  .admin-topbar {
+    padding: 14px 20px;
+  }
+  .admin-topbar-title {
+    font-size: 16px;
+  }
+  .admin-topbar-user > div:last-child {
+    display: none;
+  }
+  .admin-main {
+    padding: 24px 20px;
+  }
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .stat-card,
+  .chart-card {
+    min-width: 0;
+    padding: 18px;
+  }
+  .admin-table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
