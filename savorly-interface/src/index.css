@@ -936,6 +936,24 @@ tr:hover td {
 .admin-logout:hover {
   background: rgba(226, 107, 107, 0.1);
 }
+.admin-profile {
+  position: relative;
+}
+.admin-profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  min-width: 140px;
+  padding: 6px;
+  background: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+.admin-profile-menu .admin-logout {
+  width: 100%;
+}
 
 .admin-content {
   flex: 1;
@@ -959,6 +977,11 @@ tr:hover td {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
 }
 .admin-avatar {
   width: 36px;
