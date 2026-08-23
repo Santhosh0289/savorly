@@ -359,3 +359,27 @@ tr:hover td { background: rgba(143,201,58,0.05); }
   .stats-strip { grid-template-columns: repeat(2, 1fr); }
   .admin-form-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 640px) {
+  .container { padding-left: 20px; padding-right: 20px; }
+  .hero { min-height: auto; padding: 128px 20px 72px; }
+  .hero h1 { font-size: clamp(2.35rem, 11vw, 3.5rem); }
+  .hero p { font-size: 16px; }
+  .btn-row { width: 100%; gap: 12px; }
+  .btn-row .btn { flex: 1 1 160px; text-align: center; }
+  .stats-strip { gap: 28px 12px; padding: 48px 20px; }
+  .stat-value { font-size: 28px; }
+  .how.container { padding: 72px 20px; }
+  .how-head { margin-bottom: 36px; }
+  .how-head h2 { font-size: 2rem; line-height: 1.1; }
+  .steps { gap: 34px; }
+  .step .num { font-size: 34px; line-height: 1; }
+  .step h3 { margin-top: 8px; font-size: 20px; }
+  .step p { font-size: 15px; }
+  .tray-stage { padding: 32px 20px; }
+  .tray-stage h2 { font-size: 2rem; line-height: 1.1; }
+  .cta-band { padding: 64px 20px; margin: 40px 0; }
+  .site-footer .container { padding-left: 20px; padding-right: 20px; }
+  .footer-top { gap: 28px; }
+  .footer-links { gap: 28px; }
+}
