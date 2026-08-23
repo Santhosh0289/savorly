@@ -31,8 +31,21 @@ export default function ManageFoods() {
   };
 
   const handleDelete = async (id) => {
-    await api.delete(`/admin/foods/${id}`);
-    load();
+    try {
+      await api.delete(`/admin/foods/${id}`);
+      load();
+    } catch (err) {
+      alert(err.response?.data?.error || "Failed to delete this dish.");
+    }
+  };
+
+  const handleAvailability = async (food) => {
+    try {
+      await api.put(`/admin/foods/${food.id}`, { is_available: !food.is_available });
+      load();
+    } catch (err) {
+      alert(err.response?.data?.error || "Failed to update this dish.");
+    }
   };
 
   return (
@@ -94,6 +107,13 @@ export default function ManageFoods() {
               <td><span className="category-pill">{f.category}</span></td>
               <td>₹{f.price}</td>
               <td>
+                <button
+                  className="btn btn-ghost"
+                  style={{ padding: "6px 12px", marginRight: 8 }}
+                  onClick={() => handleAvailability(f)}
+                >
+                  {f.is_available ? "Mark Unavailable" : "Mark Available"}
+                </button>
                 <button className="btn-icon-danger" onClick={() => handleDelete(f.id)}>
                   <Trash2 size={16} />
                 </button>

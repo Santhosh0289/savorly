@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from sqlalchemy.exc import IntegrityError
 from config import Config
 from extensions import db, jwt, cors
 
@@ -37,6 +38,16 @@ def create_app():
     @app.route("/api/health")
     def health():
         return jsonify({"status": "ok"})
+
+    @app.errorhandler(IntegrityError)
+    def handle_integrity_error(error):
+        db.session.rollback()
+        return jsonify({"error": "This action conflicts with existing related data."}), 400
+
+    @app.errorhandler(500)
+    def handle_server_error(error):
+        db.session.rollback()
+        return jsonify({"error": "Something went wrong on the server."}), 500
 
     return app
 

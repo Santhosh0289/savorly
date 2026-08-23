@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from functools import wraps
 from extensions import db
-from models import User, Food, Order
+from models import User, Food, Order, OrderItem
 from flask_jwt_extended import jwt_required, get_jwt
 
 admin_bp = Blueprint("admin", __name__)
@@ -50,6 +50,12 @@ def update_food(food_id):
 @admin_required
 def delete_food(food_id):
     food = Food.query.get_or_404(food_id)
+    has_orders = OrderItem.query.filter_by(food_id=food_id).first() is not None
+    if has_orders:
+        return jsonify({
+            "error": "This dish has existing orders and cannot be deleted. Mark it unavailable instead."
+        }), 400
+
     db.session.delete(food)
     db.session.commit()
     return jsonify({"message": "deleted"})
@@ -89,7 +95,6 @@ def stats():
         Food.name, func.sum(db.session.query(func.count()).select_from(Food).scalar_subquery())
     )  # placeholder replaced below
 
-    from models import OrderItem
     top_foods = db.session.query(
         OrderItem.food_name, func.sum(OrderItem.quantity).label("qty")
     ).group_by(OrderItem.food_name).order_by(func.sum(OrderItem.quantity).desc()).limit(5).all()
