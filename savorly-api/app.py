@@ -15,8 +15,7 @@ def create_app():
     jwt.init_app(app)
     cors.init_app(app, resources={r"/api/*": {"origins": [
         "http://localhost:5173",
-        "https://savorly-santhosh-s-projects-9d334406.vercel.app",
-        r"https://savorly-.*\.vercel\.app"
+        "https://savorly-1.onrender.com"
     ]}})
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
