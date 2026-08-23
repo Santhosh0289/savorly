@@ -118,7 +118,15 @@ button {
   padding: 1px 7px;
   margin-left: 4px;
 }
-.mobile-cart { display: none; }
+.mobile-cart {
+  display: none;
+}
+.mobile-nav-actions {
+  display: none;
+}
+.mobile-logout {
+  display: none;
+}
 
 /* Hero */
 .hero {
@@ -496,10 +504,110 @@ tr:hover td {
   .nav-links {
     display: none;
   }
+  .mobile-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mobile-orders {
+    color: var(--cream);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .mobile-logout {
+    display: inline-block;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--cream);
+    font-size: 13px;
+    font-weight: 700;
+  }
   .mobile-cart {
     display: inline-block;
     padding: 9px 14px;
     font-size: 13px;
+  }
+  .orders-page {
+    padding-top: 112px;
+    padding-bottom: 56px;
+  }
+  .orders-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .orders-heading h1 {
+    font-size: 2.5rem;
+  }
+  .order-card {
+    padding: 18px 14px;
+  }
+  .order-card-header {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .order-progress {
+    gap: 2px;
+    margin: 24px -4px;
+  }
+  .progress-step small {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-shell {
+    flex-direction: column;
+    width: 100%;
+  }
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 16px 12px;
+  }
+  .admin-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    flex: none;
+  }
+  .admin-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .admin-content {
+    width: 100%;
+    min-width: 0;
+  }
+  .admin-main {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-sidebar-logo {
+    margin-bottom: 16px;
+  }
+  .admin-topbar {
+    padding: 16px 20px;
+  }
+  .admin-topbar-title {
+    font-size: 16px;
+  }
+  .admin-topbar-user > div:last-child {
+    display: none;
+  }
+  .admin-main {
+    padding: 24px 20px;
+  }
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 
@@ -972,6 +1080,142 @@ tr:hover td {
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 999px;
+}
+
+/* ---------- Customer order tracking ---------- */
+.orders-page {
+  padding-top: 128px;
+  padding-bottom: 80px;
+}
+.orders-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 34px;
+}
+.orders-heading h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1;
+}
+.orders-live {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+}
+.orders-message,
+.orders-empty {
+  color: rgba(246, 241, 228, 0.7);
+}
+.orders-empty {
+  text-align: center;
+  padding: 70px 20px;
+  border: 1px solid var(--line);
+  background: var(--ink-soft);
+}
+.orders-empty h2 {
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.orders-empty .btn {
+  margin-top: 24px;
+}
+.orders-list {
+  display: grid;
+  gap: 20px;
+}
+.order-card {
+  padding: 24px;
+  background: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.order-card-header,
+.order-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.order-card-header h2 {
+  font-size: 22px;
+}
+.order-card-header p {
+  margin-top: 4px;
+  font-size: 13px;
+  opacity: 0.55;
+}
+.order-progress {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 28px 0;
+}
+.progress-step {
+  position: relative;
+  color: rgba(246, 241, 228, 0.4);
+  text-align: center;
+}
+.progress-step::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: calc(-50% - 4px);
+  width: calc(100% + 8px);
+  height: 2px;
+  background: var(--line);
+}
+.progress-step:first-child::before {
+  display: none;
+}
+.progress-step span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 700;
+}
+.progress-step small {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+}
+.progress-step.complete {
+  color: var(--green);
+}
+.progress-step.complete::before {
+  background: var(--green);
+}
+.progress-step.complete span {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--ink);
+}
+.order-items {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: 14px;
+}
+.order-total {
+  padding-top: 16px;
+  font-size: 14px;
+}
+.order-total strong {
+  color: var(--green);
+  font-size: 18px;
 }
 
 @media (max-width: 900px) {

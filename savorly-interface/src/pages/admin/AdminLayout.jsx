@@ -19,7 +19,7 @@ export default function AdminLayout() {
       <aside className="admin-sidebar">
         <div className="admin-sidebar-logo">
           <img src={logo} alt="Savorly" className="logo-img" />
-          <span>Savorly <b>Admin</b></span>
+          <span><b>Admin</b></span>
         </div>
         <nav className="admin-nav">
           {nav.map(({ to, end, icon: Icon, label }) => (

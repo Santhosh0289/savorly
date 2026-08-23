@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
@@ -36,6 +36,13 @@ export default function Checkout() {
           <p style={{ opacity: 0.7, marginTop: 10 }}>
             We're cooking it fresh — you'll receive it soon.
           </p>
+          <Link
+            className="btn btn-primary"
+            to="/orders"
+            style={{ marginTop: 24 }}
+          >
+            Track your order
+          </Link>
         </div>
       </SiteLayout>
     );

@@ -19,15 +19,28 @@ export default function Navbar() {
         <Link to="/">Home</Link>
         <Link to="/menu">Menu</Link>
         <Link to="/#how">How it works</Link>
+        {!isAdmin && user && <Link to="/orders">My Orders</Link>}
 
         {isAdmin ? (
-          <Link className="btn btn-primary" to="/admin">Go to Admin Panel</Link>
+          <Link className="btn btn-primary" to="/admin">
+            Go to Admin Panel
+          </Link>
         ) : (
           <>
             {user ? (
-              <button className="btn btn-ghost" onClick={() => { logout(); navigate("/"); }}>Logout</button>
+              <button
+                className="btn btn-ghost"
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+              >
+                Logout
+              </button>
             ) : (
-              <Link className="btn btn-ghost" to="/login">Login</Link>
+              <Link className="btn btn-ghost" to="/login">
+                Login
+              </Link>
             )}
             <Link className="btn btn-primary" to="/checkout">
               Cart {count > 0 && <span className="cart-badge">{count}</span>}
@@ -35,11 +48,31 @@ export default function Navbar() {
           </>
         )}
       </div>
-      {!isAdmin && (
-        <Link className="mobile-cart btn btn-primary" to="/checkout">
-          Cart {count > 0 && <span className="cart-badge">{count}</span>}
-        </Link>
-      )}
+      <div className="mobile-nav-actions">
+        {user && (
+          <button
+            className="mobile-logout"
+            onClick={() => {
+              logout();
+              navigate("/");
+            }}
+          >
+            Logout
+          </button>
+        )}
+        {!isAdmin && (
+          <>
+            {user && (
+              <Link className="mobile-orders" to="/orders">
+                Orders
+              </Link>
+            )}
+            <Link className="mobile-cart btn btn-primary" to="/checkout">
+              Cart {count > 0 && <span className="cart-badge">{count}</span>}
+            </Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 }
