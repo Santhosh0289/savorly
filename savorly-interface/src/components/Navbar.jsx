@@ -35,6 +35,11 @@ export default function Navbar() {
           </>
         )}
       </div>
+      {!isAdmin && (
+        <Link className="mobile-cart btn btn-primary" to="/checkout">
+          Cart {count > 0 && <span className="cart-badge">{count}</span>}
+        </Link>
+      )}
     </nav>
   );
 }

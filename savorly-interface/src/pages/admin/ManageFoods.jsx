@@ -4,11 +4,19 @@ import api from "../../api/axios";
 
 export default function ManageFoods() {
   const [foods, setFoods] = useState([]);
-  const [form, setForm] = useState({ name: "", description: "", price: "", category: "", image_url: "" });
+  const [form, setForm] = useState({
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    image_url: "",
+  });
   const [preview, setPreview] = useState(null);
 
   const load = () => api.get("/foods/").then((res) => setFoods(res.data));
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -25,7 +33,13 @@ export default function ManageFoods() {
   const handleAdd = async (e) => {
     e.preventDefault();
     await api.post("/admin/foods", { ...form, price: parseFloat(form.price) });
-    setForm({ name: "", description: "", price: "", category: "", image_url: "" });
+    setForm({
+      name: "",
+      description: "",
+      price: "",
+      category: "",
+      image_url: "",
+    });
     setPreview(null);
     load();
   };
@@ -41,7 +55,9 @@ export default function ManageFoods() {
 
   const handleAvailability = async (food) => {
     try {
-      await api.put(`/admin/foods/${food.id}`, { is_available: !food.is_available });
+      await api.put(`/admin/foods/${food.id}`, {
+        is_available: !food.is_available,
+      });
       load();
     } catch (err) {
       alert(err.response?.data?.error || "Failed to update this dish.");
@@ -51,21 +67,36 @@ export default function ManageFoods() {
   return (
     <div>
       <h2 className="admin-page-title">Manage Foods</h2>
-      <p className="admin-page-subtitle">Add new dishes to the live menu. Images are stored securely as encoded data.</p>
+      <p className="admin-page-subtitle">
+        Add new dishes to the live menu. Images are stored securely as encoded
+        data.
+      </p>
 
       <form className="chart-card admin-food-form" onSubmit={handleAdd}>
         <div className="admin-form-grid">
           <div className="field">
             <label>Dish Name</label>
-            <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            <input
+              required
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
           </div>
           <div className="field">
             <label>Price (₹)</label>
-            <input type="number" required value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+            <input
+              type="number"
+              required
+              value={form.price}
+              onChange={(e) => setForm({ ...form, price: e.target.value })}
+            />
           </div>
           <div className="field">
             <label>Category</label>
-            <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
+            <select
+              value={form.category}
+              onChange={(e) => setForm({ ...form, category: e.target.value })}
+            >
               <option value="">Select category</option>
               <option>Mains</option>
               <option>Sides</option>
@@ -77,15 +108,26 @@ export default function ManageFoods() {
             <label>Dish Image</label>
             <label className="upload-box">
               <UploadCloud size={20} />
-              <span>{preview ? "Change image" : "Click to upload from your device"}</span>
-              <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+              <span>
+                {preview ? "Change image" : "Click to upload from your device"}
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                hidden
+              />
             </label>
           </div>
         </div>
 
         <div className="field">
           <label>Description</label>
-          <textarea rows="2" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+          <textarea
+            rows="2"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+          />
         </div>
 
         {preview && (
@@ -94,17 +136,34 @@ export default function ManageFoods() {
           </div>
         )}
 
-        <button className="btn btn-primary" style={{ width: "100%", marginTop: 10 }}>Add to Menu</button>
+        <button
+          className="btn btn-primary"
+          style={{ width: "100%", marginTop: 10 }}
+        >
+          Add to Menu
+        </button>
       </form>
 
       <table className="admin-table">
-        <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th></th></tr></thead>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
         <tbody>
           {foods.map((f) => (
             <tr key={f.id}>
-              <td><img src={f.image_url} alt={f.name} className="table-thumb" /></td>
+              <td>
+                <img src={f.image_url} alt={f.name} className="table-thumb" />
+              </td>
               <td>{f.name}</td>
-              <td><span className="category-pill">{f.category}</span></td>
+              <td>
+                <span className="category-pill">{f.category}</span>
+              </td>
               <td>₹{f.price}</td>
               <td>
                 <button
@@ -114,7 +173,10 @@ export default function ManageFoods() {
                 >
                   {f.is_available ? "Mark Unavailable" : "Mark Available"}
                 </button>
-                <button className="btn-icon-danger" onClick={() => handleDelete(f.id)}>
+                <button
+                  className="btn-icon-danger"
+                  onClick={() => handleDelete(f.id)}
+                >
                   <Trash2 size={16} />
                 </button>
               </td>
