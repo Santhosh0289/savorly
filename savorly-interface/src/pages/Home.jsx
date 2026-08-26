@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import SiteLayout from "../components/SiteLayout";
 import Hero from "../components/Hero";
 import TrayReveal from "../components/TrayReveal";
@@ -58,7 +59,7 @@ export default function Home() {
       <section className="cta-band">
         <h2>Hungry already?</h2>
         <p>Your next home-cooked meal is a few taps away.</p>
-        <a href="/menu" className="btn btn-primary">Order Now</a>
+        <Link to="/menu" className="btn btn-primary">Order Now</Link>
       </section>
     </SiteLayout>
   );
