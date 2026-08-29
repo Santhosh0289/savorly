@@ -31,6 +31,7 @@ export default function AIAssistant() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -38,6 +39,9 @@ export default function AIAssistant() {
 
   const send = async () => {
     if (!input.trim() || loading) return;
+    // On iPhone, the chat textarea remains focused after sending. Blurring it
+    // returns the page to its normal scale and lets App's global reset run.
+    inputRef.current?.blur();
     const userMsg = { role: "user", content: input.trim() };
     const nextMessages = [...messages, userMsg];
     setMessages(nextMessages);
@@ -90,6 +94,7 @@ export default function AIAssistant() {
 
           <div className="ai-panel-input">
             <textarea
+              ref={inputRef}
               rows="1"
               placeholder="e.g. How much protein is in the pepper chicken?"
               value={input}
