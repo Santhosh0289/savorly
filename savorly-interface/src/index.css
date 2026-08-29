@@ -1546,13 +1546,13 @@ tr:hover td {
 }
 
 @media (max-width: 480px) {
-  .nav { min-height: 54px; padding: 7px 14px; grid-template-columns: 34px minmax(0, 1fr) auto; }
-  .nav-menu-toggle { width: 34px; height: 34px; border-radius: 9px; }
-  .logo-img { width: 84px; height: 30px; }
+  .nav { min-height: 64px; padding: 10px 18px; grid-template-columns: 38px minmax(0, 1fr) auto; }
+  .nav-menu-toggle { width: 38px; height: 38px; border-radius: 10px; }
+  .logo-img { width: 96px; height: 34px; }
   .nav-actions { gap: 5px; }
-  .nav-actions .btn { padding: 8px 10px; font-size: 12px; }
+  .nav-actions .btn { padding: 10px 12px; font-size: 13px; }
   .nav-cart-btn { width: auto; min-width: 48px; }
-  .hero { padding: 84px 18px 34px; text-align: center; }
+  .hero { min-height: 600px; padding: 108px 18px 56px; text-align: center; }
   .hero h1 { max-width: 12ch; font-size: clamp(2.15rem, 10vw, 2.7rem); }
   .hero p { max-width: 31ch; font-size: 15px; line-height: 1.5; }
   .btn-row { margin-top: 22px; }
@@ -1560,8 +1560,16 @@ tr:hover td {
   .stats-strip { grid-template-columns: 1fr; }
   .stat-block { grid-template-columns: 1fr 1.15fr; gap: 10px; }
   .food-card img { height: 180px; }
-  .footer-top { padding-top: 28px; }
-  .auth-page { padding: 88px 18px 52px; }
+  footer.site-footer { margin-top: 22px; padding: 0 0 10px; }
+  .site-footer .container { padding-left: 18px; padding-right: 18px; }
+  .footer-top { gap: 20px; padding: 26px 0 10px; }
+  .footer-brand .logo-img { width: 92px; height: 34px; margin-bottom: 6px; }
+  .footer-brand p { font-size: 13px; line-height: 1.45; }
+  .footer-links { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .footer-links h4 { margin-bottom: 8px; font-size: 13px; }
+  .footer-links a { margin-bottom: 7px; font-size: 13px; }
+  .foot-bottom { margin-top: 12px; padding-top: 12px; gap: 4px; font-size: 12px; }
+  .auth-page { padding: 136px 18px 96px; }
 }
 
 @keyframes mobileTrayReveal {
