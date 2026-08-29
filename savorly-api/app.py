@@ -7,6 +7,7 @@ from routes.auth import auth_bp
 from routes.foods import foods_bp
 from routes.orders import orders_bp
 from routes.admin import admin_bp
+from routes.assistant import assistant_bp
 
 def create_app():
     app = Flask(__name__)
@@ -23,6 +24,7 @@ def create_app():
     app.register_blueprint(foods_bp, url_prefix="/api/foods")
     app.register_blueprint(orders_bp, url_prefix="/api/orders")
     app.register_blueprint(admin_bp, url_prefix="/api/admin")
+    app.register_blueprint(assistant_bp, url_prefix="/api/assistant")
 
     with app.app_context():
         db.create_all()

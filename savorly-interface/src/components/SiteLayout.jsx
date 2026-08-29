@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import AIAssistant from "./AIAssistant";
 
 export default function SiteLayout({ children }) {
   return (
@@ -7,6 +8,7 @@ export default function SiteLayout({ children }) {
       <Navbar />
       <main className="site-main">{children}</main>
       <Footer />
+      <AIAssistant />
     </div>
   );
 }

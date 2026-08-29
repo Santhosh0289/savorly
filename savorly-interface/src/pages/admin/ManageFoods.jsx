@@ -144,7 +144,7 @@ export default function ManageFoods() {
         </button>
       </form>
 
-      <table className="admin-table">
+      <div className="admin-table-wrap"><table className="admin-table">
         <thead>
           <tr>
             <th></th>
@@ -183,7 +183,7 @@ export default function ManageFoods() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 }

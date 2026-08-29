@@ -11,7 +11,7 @@ export default function Customers() {
   return (
     <div>
       <h2 style={{ marginBottom: 24 }}>Customers</h2>
-      <table>
+      <div className="admin-table-wrap"><table>
         <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th></tr></thead>
         <tbody>
           {customers.map((c) => (
@@ -21,7 +21,7 @@ export default function Customers() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ orders_bp = Blueprint("orders", __name__)
 @jwt_required()
 def place_order():
     data = request.get_json()
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     items = data["items"]  # [{food_id, quantity}]
 
     total = 0
@@ -36,6 +36,6 @@ def place_order():
 @orders_bp.route("/my", methods=["GET"])
 @jwt_required()
 def my_orders():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     orders = Order.query.filter_by(user_id=user_id).order_by(Order.created_at.desc()).all()
     return jsonify([o.to_dict() for o in orders])

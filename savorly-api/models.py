@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from extensions import db
 import bcrypt
 
@@ -23,7 +23,7 @@ class User(db.Model):
     def to_dict(self):
         return {"id": self.id, "name": self.name, "email": self.email,
                 "phone": self.phone, "role": self.role,
-                "created_at": self.created_at.isoformat()}
+                "created_at": self.created_at.replace(tzinfo=timezone.utc).isoformat()}
 
 
 class Food(db.Model):
@@ -66,7 +66,7 @@ class Order(db.Model):
             "notes": self.notes,
             "status": self.status,
             "total": self.total,
-            "created_at": self.created_at.isoformat(),
+            "created_at": self.created_at.replace(tzinfo=timezone.utc).isoformat(),
             "items": [i.to_dict() for i in self.items],
         }
 

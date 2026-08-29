@@ -6,6 +6,7 @@ import {
   Users,
   ListOrdered,
   LogOut,
+  ChevronDown,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.png";
@@ -27,9 +28,6 @@ export default function AdminLayout() {
       <aside className="admin-sidebar">
         <div className="admin-sidebar-logo">
           <img src={logo} alt="Savorly" className="logo-img" />
-          <span>
-            <b>Admin</b>
-          </span>
         </div>
         <nav className="admin-nav">
           {nav.map(({ to, end, icon: Icon, label }) => (
@@ -58,10 +56,15 @@ export default function AdminLayout() {
               <div className="admin-avatar">
                 {user?.name?.[0]?.toUpperCase() || "A"}
               </div>
-              <div>
-                <div className="admin-user-name">{user?.name}</div>
+              <div className="admin-user-details">
+                <div className="admin-user-name">{user?.name || "Admin"}</div>
                 <div className="admin-user-role">Administrator</div>
               </div>
+              <ChevronDown
+                size={16}
+                className={`admin-profile-chevron ${profileOpen ? "is-open" : ""}`}
+                aria-hidden="true"
+              />
             </button>
             {profileOpen && (
               <div className="admin-profile-menu">

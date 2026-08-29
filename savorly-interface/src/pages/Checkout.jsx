@@ -51,12 +51,9 @@ export default function Checkout() {
   return (
     <SiteLayout>
       <div
-        className="container"
+        className="container checkout-layout"
         style={{
           paddingTop: 120,
-          display: "grid",
-          gridTemplateColumns: "1.2fr 1fr",
-          gap: 40,
         }}
       >
         <div>
@@ -69,13 +66,7 @@ export default function Checkout() {
           {cart.map((item) => (
             <div
               key={item.id}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "14px 0",
-                borderBottom: "1px solid var(--line)",
-              }}
+              className="checkout-item"
             >
               <div>
                 <strong>{item.name}</strong>
@@ -83,7 +74,7 @@ export default function Checkout() {
                   ₹{item.price} x {item.quantity}
                 </p>
               </div>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <div className="checkout-item-actions">
                 <button
                   className="btn btn-ghost"
                   style={{ padding: "4px 10px" }}

@@ -34,5 +34,5 @@ def login():
 @auth_bp.route("/me", methods=["GET"])
 @jwt_required()
 def me():
-    user = User.query.get(get_jwt_identity())
+    user = User.query.get(int(get_jwt_identity()))
     return jsonify(user.to_dict())

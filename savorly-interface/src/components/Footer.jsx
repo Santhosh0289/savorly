@@ -1,7 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const goToHomeSection = (id) => (event) => {
+    event.preventDefault();
+    navigate("/");
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
+
   return (
     <footer className="site-footer">
       <div className="container footer-top">
@@ -17,8 +27,8 @@ export default function Footer() {
           </div>
           <div>
             <h4>Company</h4>
-            <a href="/#how">How it works</a>
-            <a href="/#stats">Our impact</a>
+            <Link to="/" onClick={goToHomeSection("how")}>How it works</Link>
+            <Link to="/" onClick={goToHomeSection("stats")}>Our impact</Link>
           </div>
           <div>
             <h4>Account</h4>
