@@ -1476,7 +1476,13 @@ tr:hover td {
   .tray-stage { position: static; height: auto; padding: 0 18px; overflow: visible; }
   .tray-stage h2 { margin-bottom: 22px !important; }
   .tray-visual { width: min(88vw, 360px); }
-  .tray-item { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .tray-item { opacity: 0; transform: translate(-50%, -50%) scale(.8); }
+  .tray-visual.is-revealed .tray-item {
+    animation: mobileTrayReveal .45s cubic-bezier(.2, .9, .2, 1) both;
+  }
+  .tray-visual.is-revealed .tray-item:nth-child(3) { animation-delay: .1s; }
+  .tray-visual.is-revealed .tray-item:nth-child(4) { animation-delay: .2s; }
+  .tray-visual.is-revealed .tray-item:nth-child(5) { animation-delay: .3s; }
 
   .auth-page {
     min-height: 0;
@@ -1540,9 +1546,25 @@ tr:hover td {
 }
 
 @media (max-width: 480px) {
+  .nav { min-height: 54px; padding: 7px 14px; grid-template-columns: 34px minmax(0, 1fr) auto; }
+  .nav-menu-toggle { width: 34px; height: 34px; border-radius: 9px; }
+  .logo-img { width: 84px; height: 30px; }
+  .nav-actions { gap: 5px; }
+  .nav-actions .btn { padding: 8px 10px; font-size: 12px; }
+  .nav-cart-btn { width: auto; min-width: 48px; }
+  .hero { padding: 84px 18px 34px; text-align: center; }
+  .hero h1 { max-width: 12ch; font-size: clamp(2.15rem, 10vw, 2.7rem); }
+  .hero p { max-width: 31ch; font-size: 15px; line-height: 1.5; }
+  .btn-row { margin-top: 22px; }
+  .btn-row .btn { flex: 1 1 100%; width: 100%; }
   .stats-strip { grid-template-columns: 1fr; }
   .stat-block { grid-template-columns: 1fr 1.15fr; gap: 10px; }
   .food-card img { height: 180px; }
   .footer-top { padding-top: 28px; }
-  .auth-page { padding-top: 76px; }
+  .auth-page { padding: 88px 18px 52px; }
+}
+
+@keyframes mobileTrayReveal {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }

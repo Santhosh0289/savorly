@@ -18,6 +18,7 @@ const cells = [
 export default function TrayReveal() {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState([false, false, false, false]);
+  const [mobileRevealed, setMobileRevealed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,12 +36,29 @@ export default function TrayReveal() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || !window.matchMedia("(max-width: 760px)").matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMobileRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="tray-section" ref={sectionRef}>
       <div className="tray-stage">
         <div className="eyebrow" style={{ textAlign: "center", width: "100%" }}>From our kitchen</div>
         <h2 style={{ textAlign: "center", marginBottom: 30 }}>Every tray, packed compartment by compartment.</h2>
-        <div className="tray-visual">
+        <div className={`tray-visual ${mobileRevealed ? "is-revealed" : ""}`}>
           <div className="plate-ring" />
           {cells.map((cell, i) => (
             <div
