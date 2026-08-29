@@ -44,7 +44,7 @@ export default function Home() {
 
       <TrayReveal />
 
-      <section className="container" style={{ padding: "80px 0" }}>
+      <section className="container home-favorites">
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
           <div className="eyebrow">Fan favorites</div>
           <h2>What people order the most</h2>

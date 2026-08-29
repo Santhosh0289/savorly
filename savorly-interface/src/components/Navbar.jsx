@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
-import { ChevronDown, LogOut, ShoppingBag } from "lucide-react";
+import { ChevronDown, LogOut, Menu, ShoppingBag, X } from "lucide-react";
 import logo from "../assets/logo.png";
 
 export default function Navbar() {
@@ -12,6 +12,7 @@ export default function Navbar() {
   const count = cart.reduce((s, i) => s + i.quantity, 0);
   const isAdmin = user?.role === "admin";
   const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Navbar() {
   const goToTop = () => {
     navigate("/");
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setMobileMenuOpen(false);
   };
 
   const goToHowItWorks = (event) => {
@@ -44,17 +46,26 @@ export default function Navbar() {
     window.setTimeout(() => {
       document.getElementById("how")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 50);
+    setMobileMenuOpen(false);
   };
 
   return (
     <nav className="nav">
+      <button
+        className="nav-menu-toggle"
+        onClick={() => setMobileMenuOpen((open) => !open)}
+        aria-expanded={mobileMenuOpen}
+        aria-label="Toggle navigation menu"
+      >
+        {mobileMenuOpen ? <X size={21} /> : <Menu size={22} />}
+      </button>
       <Link to="/" className="logo-link" onClick={goToTop}>
         <img src={logo} alt="Savorly" className="logo-img" />
       </Link>
       
-      <div className="nav-links">
+      <div className={`nav-links ${mobileMenuOpen ? "is-open" : ""}`}>
         <Link to="/" onClick={goToTop}>Home</Link>
-        <Link to="/menu">Menu</Link>
+        <Link to="/menu" onClick={() => setMobileMenuOpen(false)}>Menu</Link>
         <Link to="/" onClick={goToHowItWorks}>How it works</Link>
       </div>
 

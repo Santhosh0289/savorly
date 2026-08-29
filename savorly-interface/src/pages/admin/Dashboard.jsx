@@ -29,7 +29,7 @@ export default function Dashboard() {
       <div className="chart-grid">
         <div className="chart-card">
           <h3>Revenue Over Time</h3>
-          <ResponsiveContainer width="100%" height={260}>
+          <ResponsiveContainer width="100%" height={220}>
             <LineChart data={stats.revenue_by_day}>
               <CartesianGrid stroke="rgba(246,241,228,0.08)" />
               <XAxis dataKey="date" stroke="#f6f1e4" fontSize={12} />
@@ -42,7 +42,7 @@ export default function Dashboard() {
 
         <div className="chart-card">
           <h3>Orders by Status</h3>
-          <ResponsiveContainer width="100%" height={260}>
+          <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie data={stats.by_status} dataKey="count" nameKey="status" outerRadius={90} label>
                 {stats.by_status.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
@@ -55,7 +55,7 @@ export default function Dashboard() {
 
       <div className="chart-card">
         <h3>Top Selling Foods</h3>
-        <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer width="100%" height={220}>
           <BarChart data={stats.top_foods}>
             <CartesianGrid stroke="rgba(246,241,228,0.08)" />
             <XAxis dataKey="name" stroke="#f6f1e4" fontSize={12} />

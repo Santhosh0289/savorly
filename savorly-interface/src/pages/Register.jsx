@@ -53,7 +53,7 @@ export default function Register() {
               required
             />
           </div>
-          {error && <p className="error-text">{error}</p>}
+          {error && <p className="error-text" role="alert">{error}</p>}
           <button className="btn btn-primary" style={{ width: "100%" }}>
             Sign Up
           </button>

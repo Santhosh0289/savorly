@@ -131,6 +131,7 @@ button {
   gap: 18px;
   align-items: center;
 }
+.nav-menu-toggle { display: none; }
 .nav-cart-btn {
   display: flex;
   align-items: center;
@@ -404,11 +405,11 @@ footer {
 
 /* Forms */
 .auth-page {
-  min-height: 100vh;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px 20px;
+  padding: 104px 20px 48px;
 }
 .auth-card {
   background: var(--ink-soft);
@@ -421,6 +422,16 @@ footer {
 }
 .auth-card h2 {
   margin-bottom: 22px;
+}
+.auth-card .error-text {
+  display: block;
+  width: 100%;
+  margin: 2px 0 14px;
+  padding: 9px 11px;
+  border: 1px solid rgba(226, 107, 107, 0.3);
+  border-radius: 9px;
+  background: rgba(226, 107, 107, 0.08);
+  line-height: 1.35;
 }
 .field {
   margin-bottom: 16px;
@@ -1315,6 +1326,7 @@ tr:hover td {
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ---------- Responsive layout audit ---------- */
+.home-favorites { padding-top: 80px; padding-bottom: 80px; }
 .checkout-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr); gap: 40px; padding-bottom: 64px; }
 .checkout-item { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .checkout-item-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
@@ -1374,40 +1386,163 @@ tr:hover td {
 }
 
 @media (max-width: 760px) {
-  .nav { padding: 12px 5vw; }
+  .nav { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; min-height: 64px; padding: 10px 5vw; }
+  .nav-menu-toggle { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(246,241,228,.06); border: 1px solid rgba(246,241,228,.12); color: var(--cream); }
+  .nav .logo-link { justify-self: start; }
   .nav-links { display: none; }
+  .nav-links.is-open { position: absolute; top: calc(100% + 8px); left: 12px; right: 12px; display: grid; gap: 3px; padding: 8px; border: 1px solid rgba(246,241,228,.14); border-radius: 14px; background: rgba(23,24,18,.96); box-shadow: 0 18px 38px rgba(0,0,0,.38); backdrop-filter: blur(16px); }
+  .nav-links.is-open a { padding: 12px; border-radius: 9px; }.nav-links.is-open a:hover { background: rgba(143,201,58,.1); }.nav-links.is-open a::after { display: none; }
   .nav-actions { gap: 8px; }
   .nav-actions .btn { padding: 10px 14px; font-size: 13px; }
   .nav-cart-btn { min-width: 48px; justify-content: center; }
-  .hero { min-height: min(760px, 100svh); padding: 112px 5vw 62px; }
+  .hero { min-height: min(700px, 100svh); padding: 96px 5vw 50px; }
   .hero p { font-size: 16px; }.btn-row { width: 100%; gap: 10px; }.btn-row .btn { flex: 1 1 180px; }
   .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 38px 0; }
   .food-card-body { padding: 15px; }.food-card img { height: 150px; }.food-card-body h3 { font-size: 17px; }.food-card-footer { gap: 10px; }.add-btn { padding: 8px 13px; }
-  .how { padding: 72px 0; }.how-head { margin-bottom: 34px; }.steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
-  .stats-strip { padding: 46px 5vw; gap: 28px 12px; }.stat-value { font-size: 30px; }
+  .how { padding: 64px 0; }.how-head { margin-bottom: 30px; }.steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .stats-strip { padding: 42px 5vw; gap: 24px 12px; }.stat-value { font-size: 30px; }
   .tray-section { height: 280vh; }.tray-stage { padding: 28px 5vw; }.tray-stage h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }.tray-visual { width: min(82vmin, 390px); }
   .cta-band { margin: 38px 0; padding: 64px 5vw; }
   .footer-top { flex-direction: column; gap: 28px; }.footer-links { width: 100%; justify-content: space-between; gap: 20px; }
   .checkout-layout { grid-template-columns: 1fr; gap: 28px; }.checkout-layout .auth-card { max-width: none; }
   .orders-page { padding-top: 108px; }.orders-heading { align-items: flex-start; flex-direction: column; gap: 12px; }.orders-sections { gap: 38px; }.order-progress { overflow-x: auto; padding-bottom: 4px; }.progress-step { min-width: 112px; }
-  .admin-shell { display: block; }.admin-sidebar { width: 100%; height: auto; min-height: 64px; padding: 10px 12px; position: relative; flex-direction: row; align-items: center; overflow-x: auto; scrollbar-width: none; }.admin-sidebar::-webkit-scrollbar { display: none; }
-  .admin-sidebar-logo { flex: 0 0 122px; height: 42px; margin: 0 8px 0 0; padding: 0 10px 0 0; border-bottom: 0; border-right: 1px solid rgba(246,241,228,.1); }.admin-sidebar-logo .logo-img { width: 108px; height: 36px; }
-  .admin-nav { flex: 0 0 auto; flex-direction: row; gap: 6px; }.admin-nav a { flex: 0 0 auto; padding: 10px 12px; white-space: nowrap; }
+  .admin-shell { display: block; }.admin-sidebar { width: 100%; height: auto; min-height: 64px; padding: 10px 0 10px 12px; position: relative; flex-direction: row; align-items: center; overflow: hidden; scrollbar-width: none; }
+  .admin-sidebar-logo { position: relative; z-index: 2; flex: 0 0 122px; height: 42px; margin: 0 8px 0 0; padding: 0 10px 0 0; border-bottom: 0; border-right: 1px solid rgba(246,241,228,.1); background: var(--ink-soft); }.admin-sidebar-logo .logo-img { width: 108px; height: 36px; }
+  .admin-nav { flex: 1 1 auto; flex-direction: row; gap: 6px; overflow-x: auto; overscroll-behavior-inline: contain; padding-right: 12px; scrollbar-width: none; }.admin-nav::-webkit-scrollbar { display: none; }.admin-nav a { flex: 0 0 auto; padding: 10px 12px; white-space: nowrap; }
   .admin-topbar { padding: 11px 16px; }.admin-main { padding: 24px 5vw 36px; }.admin-form-grid { grid-template-columns: 1fr; }.stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }.chart-card { padding: 18px; }
   .ai-fab { right: 16px; bottom: 16px; }.ai-panel { right: 12px; bottom: 82px; width: calc(100vw - 24px); max-width: 390px; height: min(500px, calc(100svh - 106px)); }.ai-panel-header { padding: 13px 14px; }.ai-panel-input { padding: 10px; }
 }
 
 @media (max-width: 480px) {
   .container { padding-left: 18px; padding-right: 18px; }
-  .nav { padding: 10px 18px; }.logo-img { width: 98px; height: 36px; }.nav-actions .btn { padding: 9px 11px; }
-  .hero { padding-left: 18px; padding-right: 18px; }.hero h1 { font-size: clamp(2.35rem, 12vw, 3.1rem); }.hero p { font-size: 15px; }.eyebrow { font-size: 11px; margin-bottom: 13px; }.btn-row .btn { flex-basis: 100%; }
+  .nav { grid-template-columns: 36px 1fr auto; gap: 8px; padding: 9px 18px; }.nav-menu-toggle { width: 36px; height: 36px; }.logo-img { width: 92px; height: 34px; }.nav-actions .btn { padding: 9px 11px; }
+  .hero { min-height: auto; padding: 100px 18px 42px; }.hero h1 { font-size: clamp(2.2rem, 11vw, 2.9rem); }.hero p { font-size: 15px; }.eyebrow { font-size: 11px; margin-bottom: 13px; }.btn-row .btn { flex-basis: 100%; }
   .menu-grid { grid-template-columns: 1fr; }.food-card img { height: 190px; }.food-card-body { padding: 17px; }
-  .steps, .stats-strip { grid-template-columns: 1fr; }.stats-strip { gap: 23px; }.stat-block { display: grid; grid-template-columns: 1fr 1.2fr; align-items: baseline; gap: 12px; text-align: left; }.stat-label { margin: 0; }
+  .steps, .stats-strip { grid-template-columns: 1fr; }.steps { gap: 22px; }.stats-strip { gap: 20px; padding-top: 34px; padding-bottom: 34px; }.stat-block { display: grid; grid-template-columns: 1fr 1.2fr; align-items: baseline; gap: 12px; text-align: left; }.stat-label { margin: 0; }.home-favorites { padding-top: 52px; padding-bottom: 52px; }.home-favorites h2 { font-size: 25px; }.home-favorites .menu-grid { padding-top: 28px; }
   .tray-section { height: 240vh; }.tray-stage { padding-left: 18px; padding-right: 18px; }.tray-item-label { font-size: 9px; padding: 3px 4px; }.cta-band { padding-left: 18px; padding-right: 18px; }
   .footer-links { display: grid; grid-template-columns: repeat(2, 1fr); }.foot-bottom { flex-direction: column; }
-  .auth-page { padding: 84px 18px 36px; }.auth-card { padding: 26px 20px; border-radius: 16px; }
+  .auth-page { align-items: flex-start; padding: 92px 18px 44px; }.auth-card { padding: 26px 20px; border-radius: 16px; }.auth-card .error-text { margin-top: -4px; margin-bottom: 14px; }
   .checkout-item { align-items: flex-start; flex-direction: column; }.checkout-item-actions { width: 100%; justify-content: flex-end; }.checkout-layout { padding-bottom: 42px; }
   .orders-page .order-card { padding: 0; }.order-card-header { flex-direction: column; }.order-card-new .order-card-header { padding: 18px; }.order-status-summary { margin: 14px 18px 0; }.order-card-new .order-progress { margin: 20px 18px; }.order-card-new .order-items { margin: 0 18px; }.order-card-new .order-total { padding-left: 18px; padding-right: 18px; }.orders-section-heading h2 { font-size: 20px; }.orders-live { padding: 6px 10px; }.order-item, .order-total { font-size: 13px; }
   .admin-topbar-title { font-size: 16px; }.admin-user-details, .admin-profile-chevron { display: none; }.admin-topbar-user { min-height: 42px; padding: 4px; }.admin-avatar { width: 34px; height: 34px; }.admin-main { padding: 20px 18px 32px; }.admin-page-title { font-size: 22px; }.stat-grid { grid-template-columns: 1fr; }.stat-card { padding: 18px; }.admin-table-wrap > table { min-width: 580px; }
   .ai-bubble { max-width: 90%; }.cooking-loader-refined { padding: 38px 0; }
+}
+
+/* ---------- Mobile layout refinements ---------- */
+@media (max-width: 760px) {
+  .nav {
+    min-height: 58px;
+    padding: 8px 16px;
+    gap: 8px;
+  }
+  .nav-menu-toggle {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+  }
+  .nav .logo-link { min-width: 0; }
+  .logo-img { width: 94px; height: 32px; }
+  .nav-actions { gap: 6px; }
+  .nav-actions .btn { padding: 9px 12px; font-size: 13px; }
+  .nav-cart-btn { width: 44px; min-width: 44px; padding: 9px; }
+  .profile-btn { padding: 5px; gap: 4px; }
+  .profile-avatar { width: 30px; height: 30px; }
+  .nav-links.is-open {
+    top: calc(100% + 6px);
+    left: 10px;
+    right: 10px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 92px 18px 36px;
+  }
+  .hero h1 { max-width: 13ch; }
+  .hero p { margin-top: 14px; }
+  .btn-row { width: 100%; margin-top: 24px; gap: 10px; }
+  .btn-row .btn { flex: 1 1 180px; padding: 12px 18px; }
+
+  .stats-strip { padding: 34px 18px; gap: 16px; }
+  .home-favorites { padding-top: 42px; padding-bottom: 42px; }
+  .home-favorites .menu-grid { padding: 22px 0 0; }
+  .menu-grid { gap: 14px; padding: 28px 0; }
+  .food-card-body { padding: 15px 16px 17px; }
+  .food-card-body p { min-height: 0; }
+  .food-card-footer { margin-top: 12px; }
+
+  /* The scroll-driven tray is useful on desktop, but should not create several
+     screens of empty space on a phone. */
+  .tray-section { height: auto; padding: 42px 0; }
+  .tray-stage { position: static; height: auto; padding: 0 18px; overflow: visible; }
+  .tray-stage h2 { margin-bottom: 22px !important; }
+  .tray-visual { width: min(88vw, 360px); }
+  .tray-item { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+  .auth-page {
+    min-height: 0;
+    align-items: flex-start;
+    padding: 82px 18px 34px;
+  }
+  .auth-card { max-width: 520px; padding: 24px 20px; border-radius: 16px; }
+  .auth-card h2 { margin-bottom: 18px; }
+  .field { margin-bottom: 13px; }
+  .error-text,
+  .auth-card .error-text {
+    display: block;
+    width: 100%;
+    margin: 2px 0 14px;
+    padding: 9px 11px;
+    border: 1px solid rgba(226, 107, 107, 0.35);
+    border-radius: 9px;
+    background: rgba(226, 107, 107, 0.08);
+    line-height: 1.4;
+  }
+
+  .admin-shell { display: block; overflow-x: clip; }
+  .admin-sidebar {
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr);
+    align-items: center;
+    width: 100%;
+    min-height: 60px;
+    height: 60px;
+    padding: 0 0 0 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .admin-sidebar-logo {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 116px;
+    height: 42px;
+    margin: 0;
+    padding: 0 9px 0 0;
+    border: 0;
+    border-right: 1px solid rgba(246, 241, 228, 0.1);
+    background: var(--ink-soft);
+  }
+  .admin-sidebar-logo .logo-img { width: 102px; height: 34px; }
+  .admin-nav {
+    min-width: 0;
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0 12px;
+    scrollbar-width: none;
+  }
+  .admin-nav::-webkit-scrollbar { display: none; }
+  .admin-nav a { flex: 0 0 auto; padding: 9px 11px; white-space: nowrap; }
+  .admin-main { min-width: 0; padding: 22px 18px 32px; }
+  .admin-topbar { padding: 10px 16px; }
+  .chart-card { min-width: 0; padding: 16px; }
+}
+
+@media (max-width: 480px) {
+  .stats-strip { grid-template-columns: 1fr; }
+  .stat-block { grid-template-columns: 1fr 1.15fr; gap: 10px; }
+  .food-card img { height: 180px; }
+  .footer-top { padding-top: 28px; }
+  .auth-page { padding-top: 76px; }
 }
