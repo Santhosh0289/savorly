@@ -16,9 +16,9 @@ export default function Hero() {
       <p>Savorly brings home-style meals from our kitchen to your table — made to order, delivered hot, every single day.</p>
       <div className="btn-row">
         <Link to="/menu" className="btn btn-primary">Explore Menu</Link>
-        <a href="#how" className="btn btn-ghost" onClick={scrollToHowItWorks}>
+        <Link to="#how" className="btn btn-ghost" onClick={scrollToHowItWorks}>
           How it works
-        </a>
+        </Link>
       </div>
     </section>
   );
