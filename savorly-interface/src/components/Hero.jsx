@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
 export default function Hero() {
+  const scrollToHowItWorks = (event) => {
+    event.preventDefault();
+    document.getElementById("how")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <section className="hero">
       <div className="eyebrow">Homemade, delivered daily</div>
@@ -8,7 +16,9 @@ export default function Hero() {
       <p>Savorly brings home-style meals from our kitchen to your table — made to order, delivered hot, every single day.</p>
       <div className="btn-row">
         <Link to="/menu" className="btn btn-primary">Explore Menu</Link>
-        <a href="#how" className="btn btn-ghost">How it works</a>
+        <a href="#how" className="btn btn-ghost" onClick={scrollToHowItWorks}>
+          How it works
+        </a>
       </div>
     </section>
   );

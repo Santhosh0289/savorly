@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
@@ -13,6 +14,25 @@ import Customers from "./pages/admin/Customers";
 import OrderQueue from "./pages/admin/OrderQueue";
 
 export default function App() {
+  useEffect(() => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (!viewport) return;
+
+    const resetIosZoom = (event) => {
+      if (!event.target.matches("input, textarea, select")) return;
+
+      // Safari keeps its automatic input zoom after focus. Briefly limiting the
+      // scale on blur resets it, then the normal responsive viewport is restored.
+      viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
+      window.setTimeout(() => {
+        viewport.setAttribute("content", "width=device-width, initial-scale=1");
+      }, 100);
+    };
+
+    document.addEventListener("focusout", resetIosZoom);
+    return () => document.removeEventListener("focusout", resetIosZoom);
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
