@@ -17,20 +17,29 @@ export default function App() {
   useEffect(() => {
     const viewport = document.querySelector('meta[name="viewport"]');
     if (!viewport) return;
+    const defaultViewport = viewport.getAttribute("content") || "width=device-width, initial-scale=1";
+    let resetTimer;
 
     const resetIosZoom = (event) => {
       if (!event.target.matches("input, textarea, select")) return;
 
-      // Safari keeps its automatic input zoom after focus. Briefly limiting the
-      // scale on blur resets it, then the normal responsive viewport is restored.
-      viewport.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1");
-      window.setTimeout(() => {
-        viewport.setAttribute("content", "width=device-width, initial-scale=1");
-      }, 100);
+      // Safari keeps its automatic input zoom after focus. Temporarily lock the
+      // scale on blur, then restore the normal, user-zoomable viewport.
+      window.clearTimeout(resetTimer);
+      viewport.setAttribute(
+        "content",
+        "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+      );
+      resetTimer = window.setTimeout(() => {
+        viewport.setAttribute("content", defaultViewport);
+      }, 250);
     };
 
     document.addEventListener("focusout", resetIosZoom);
-    return () => document.removeEventListener("focusout", resetIosZoom);
+    return () => {
+      window.clearTimeout(resetTimer);
+      document.removeEventListener("focusout", resetIosZoom);
+    };
   }, []);
 
   return (
