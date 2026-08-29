@@ -1428,6 +1428,30 @@ tr:hover td {
   .ai-bubble { max-width: 90%; }.cooking-loader-refined { padding: 38px 0; }
 }
 
+/* iOS zooms text fields smaller than 16px on focus. Keep mobile controls at
+   the native size so chat and every other form stay at the normal page scale. */
+@media (max-width: 760px) {
+  input,
+  textarea,
+  select,
+  .ai-panel-input textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Desktop navigation: keep each group in a stable, intentional position
+   without changing the separate mobile navigation layout. */
+@media (min-width: 761px) {
+  .nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    padding: 11px clamp(32px, 6vw, 120px);
+  }
+  .nav .logo-link { justify-self: start; }
+  .nav-links { justify-self: center; gap: 26px; }
+  .nav-actions { justify-self: end; }
+}
+
 /* ---------- Mobile layout refinements ---------- */
 @media (max-width: 760px) {
   .nav {
