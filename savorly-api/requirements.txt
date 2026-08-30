@@ -6,5 +6,5 @@ psycopg[binary]==3.2.13
 python-dotenv==1.0.1
 bcrypt==4.2.0
 gunicorn==22.0.0
-requests==2.32.3
+requests==2.33.0
 google-auth==2.35.0
