@@ -3,7 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 
-def send_otp_email(to_email, code):
+def send_otp_email(to_email, code, purpose="verification"):
     sender = os.getenv("SMTP_USER")
     password = os.getenv("SMTP_PASSWORD")
     if not sender or not password:
@@ -12,12 +12,12 @@ def send_otp_email(to_email, code):
     message = MIMEText(f"""
       <div style=\"font-family:Arial,sans-serif;max-width:400px\">
         <h2 style=\"color:#5e8c1f\">Savorly</h2>
-        <p>Your verification code is:</p>
+        <p>Your {purpose} code is:</p>
         <h1 style=\"letter-spacing:6px\">{code}</h1>
         <p style=\"color:#666;font-size:13px\">It expires in 10 minutes. If you did not request it, you can ignore this email.</p>
       </div>
     """, "html")
-    message["Subject"] = "Your Savorly verification code"
+    message["Subject"] = f"Your Savorly {purpose} code"
     message["From"] = sender
     message["To"] = to_email
 

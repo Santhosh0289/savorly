@@ -468,6 +468,8 @@ footer {
 
 .auth-full-button { width: 100%; }
 .auth-provider-button { margin-top: 12px; }
+.auth-text-button { display: block; margin: -5px 0 14px auto; padding: 0; background: transparent; color: var(--green); font-size: 13px; }
+.success-text { margin: 2px 0 14px; padding: 9px 11px; border: 1px solid rgba(143, 201, 58, 0.32); border-radius: 9px; background: rgba(143, 201, 58, 0.08); color: var(--green); font-size: 13px; line-height: 1.35; }
 .auth-divider {
   display: flex;
   align-items: center;
@@ -483,7 +485,7 @@ footer {
 .auth-switch a { color: var(--green); opacity: 1; }
 .auth-otp-copy { margin-bottom: 16px; font-size: 13px; line-height: 1.5; opacity: 0.75; }
 .auth-back-button { margin-top: 10px; }
-.google-login { display: flex; justify-content: center; min-height: 40px; }
+.google-login { display: flex; justify-content: center; width: 100%; min-height: 40px; }
 .auth-provider-note { color: rgba(246, 241, 228, 0.55); font-size: 12px; text-align: center; }
 .channel-toggle { display: flex; gap: 10px; }
 .channel-option { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--ink); color: var(--cream); font-size: 13px; font-weight: 600; opacity: 0.7; transition: all 0.2s; }
@@ -1493,7 +1495,7 @@ tr:hover td {
     flex: 0 0 36px;
   }
   .nav .logo-link { min-width: 0; }
-  .logo-img { width: 94px; height: 32px; }
+  .nav .logo-img { width: 108px; height: 38px; }
   .nav-actions { gap: 6px; }
   .nav-actions .btn { padding: 9px 12px; font-size: 13px; }
   .nav-cart-btn { width: 44px; min-width: 44px; padding: 9px; }

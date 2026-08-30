@@ -38,6 +38,10 @@ export function AuthProvider({ children }) {
     return persist(data);
   };
 
+  const requestPasswordReset = (email) => api.post("/auth/forgot-password", { email });
+
+  const resetPassword = (email, otp, password) => api.post("/auth/reset-password", { email, otp, password });
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -45,7 +49,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, sendOtp, register, loginWithGoogle, loginWithPhone, logout }}>
+    <AuthContext.Provider value={{ user, login, sendOtp, register, loginWithGoogle, loginWithPhone, requestPasswordReset, resetPassword, logout }}>
       {children}
     </AuthContext.Provider>
   );

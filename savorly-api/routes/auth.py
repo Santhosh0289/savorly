@@ -88,6 +88,48 @@ def login():
     return auth_response(user)
 
 
+@auth_bp.route("/forgot-password", methods=["POST"])
+def forgot_password():
+    email = normalized_email((request.get_json(silent=True) or {}).get("email"))
+    if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
+        return jsonify({"error": "Enter a valid email address"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    # Keep this response identical when an account does not exist to avoid
+    # exposing which email addresses are registered.
+    if not user:
+        return jsonify({"message": "If that email has an account, a reset code has been sent."})
+
+    code = OtpCode.generate(email, purpose="password_reset")
+    try:
+        send_otp_email(email, code, purpose="password reset")
+    except Exception:
+        db.session.rollback()
+        return jsonify({"error": "Could not send the reset code. Please try again."}), 502
+    return jsonify({"message": "If that email has an account, a reset code has been sent."})
+
+
+@auth_bp.route("/reset-password", methods=["POST"])
+def reset_password():
+    data = request.get_json(silent=True) or {}
+    email = normalized_email(data.get("email"))
+    otp = (data.get("otp") or "").strip()
+    password = data.get("password") or ""
+
+    if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email) or len(password) < 8:
+        return jsonify({"error": "Enter a valid email address and a password of at least 8 characters"}), 400
+    if not re.fullmatch(r"\d{6}", otp):
+        return jsonify({"error": "Enter the 6-digit reset code"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not OtpCode.verify(email, "password_reset", otp):
+        return jsonify({"error": "Invalid or expired reset code"}), 400
+
+    user.set_password(password)
+    db.session.commit()
+    return jsonify({"message": "Password updated. You can now log in."})
+
+
 @auth_bp.route("/google", methods=["POST"])
 def google_login():
     credential = (request.get_json(silent=True) or {}).get("credential")

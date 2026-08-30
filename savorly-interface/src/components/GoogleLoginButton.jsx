@@ -22,8 +22,9 @@ export default function GoogleLoginButton() {
         }
       },
     });
+    const width = Math.min(400, Math.floor(divRef.current.getBoundingClientRect().width));
     window.google.accounts.id.renderButton(divRef.current, {
-      theme: "filled_black", size: "large", shape: "pill", width: 320,
+      theme: "filled_black", size: "large", shape: "pill", width,
     });
   }, [loginWithGoogle, navigate]);
 
